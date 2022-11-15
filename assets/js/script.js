@@ -1,6 +1,10 @@
 
 console.log("java");
 var todoList = document.querySelector("#answers");
+var startButton = document.querySelector(".start-button");
+var largeFontQuestion = document.querySelector(".question");
+largeFontQuestion.textContent = "";
+let i = "0"
 //Questions array
 let quizQuestions = [
   {question:'What is JavaScript?',
@@ -39,7 +43,7 @@ correctAnswer:'b'
  },
 correctAnswer:'d'
 },
-{question:`Which of the following object is the main entry point to all client side javaSCript features and APIs`,
+{question:`Which of the following object is the main entry point to all client side javaScript features and APIs`,
  response:{
   a:'Position',
   b:'Standard',
@@ -49,67 +53,52 @@ correctAnswer:'d'
 correctAnswer:'c'
 }
 ];
+console.log(quizQuestions[0]);
 // The following function renders items in a todo list as <li> elements
 function renderAnswers() {
   // Clear todoList element and update todoCountSpan
   todoList.innerHTML = "";
  
   // Render the potential answers
-  for (var i = 0; i < todos.length; i++) {
-    var todo = todos[i];
+  
+   
+    var todo = quizQuestions[i];
+    //Erase this 
+    //var li = document.createElement("li");
+    //li.textContent = todo.response.a;
+    //var li2 = document.createElement("li");
+    //li2.textContent = todo.response.b;
+    //var li3 = document.createElement("li");
+    //li3.textContent = todo.response.c;
+    //var li4 = document.createElement("li");
+    //li4.textContent = todo.response.d;
 
-    var li = document.createElement("li");
-    li.textContent = todo;
-    li.setAttribute("data-index", i);
+   // li.setAttribute("data-index", i);
 
-    var button = document.createElement("button");
-    button.textContent = "Answer";
+    var button1 = document.createElement("button");
+    button1.setAttribute("data-index", 'a')
+    button1.textContent = todo.response.a;
+    var button2 = document.createElement("button");
+    button2.setAttribute("data-index", 'b')
+    button2.textContent = todo.response.b;
+    var button3 = document.createElement("button");
+    button3.setAttribute("data-index", 'c')
+    button3.textContent = todo.response.c;
+    var button4 = document.createElement("button");
+    button4.setAttribute("data-index", 'd')
+    button4.textContent = todo.response.d;
+   // todo.appendChild(button);
 
-    li.appendChild(button);
-    todoList.appendChild(li);
-    console.log(quizQuestions);
+    todoList.appendChild(button1);
+    todoList.appendChild(button2);
+    todoList.appendChild(button3);
+    todoList.appendChild(button4);
+    console.log(todo.response);
+    largeFontQuestion.textContent = todo.question;
   }
-}
-renderAnswers();
-
-// // This function is being called below and will run when the page loads.
-// function init() {
-//   // Get stored todos from localStorage
-//   var storedTodos = JSON.parse(localStorage.getItem("todos"));
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-//   // If todos were retrieved from localStorage, update the todos array to it
-//   if (storedTodos !== null) {
-//     todos = storedTodos;
-//   }
-
-//   // This is a helper function that will render todos to the DOM
-//   renderTodos();
-// }
-
-// function storeTodos() {
-//   // Stringify and set key in localStorage to todos array
-//   localStorage.setItem("todos", JSON.stringify(todos));
-// }
-
-// // Add submit event to form
-// todoForm.addEventListener("submit", function(event) {
-//   event.preventDefault();
-
-//   var todoText = todoInput.value.trim();
-
-//   // Return from function early if submitted todoText is blank
-//   if (todoText === "") {
-//     return;
-//   }
-
-//   // Add new todoText to todos array, clear the input
-//   todos.push(todoText);
-//   todoInput.value = "";
-
-//   // Store updated todos in localStorage, re-render the list
-//   storeTodos();
-//   renderTodos();
-// });
+;
+// Add a display none
+startButton.addEventListener("click", renderAnswers);
 
 // Add click event to todoList element
 todoList.addEventListener("click", function(event) {
@@ -118,14 +107,11 @@ todoList.addEventListener("click", function(event) {
   // Checks if element is a button
   if (element.matches("button") === true) {
     // Get its data-index value and remove the todo element from the list
-    console.log("You clicked on button")
+   
     var index = element.parentElement.getAttribute("data-index");
-    todos.splice(index, 1);
-    todoList.innerHTML = todos;
+    console.log("You clicked on"+ index);
+    console.log(index)
  
-    // Store updated todos in localStorage, re-render the list
-    //storeTodos();
-    //renderTodos();
   }
 });
 
