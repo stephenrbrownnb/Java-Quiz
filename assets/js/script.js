@@ -1,10 +1,21 @@
 
-console.log("java");
 var todoList = document.querySelector("#answers");
 var startButton = document.querySelector(".start-button");
 var largeFontQuestion = document.querySelector(".question");
 largeFontQuestion.textContent = "";
-let i = "0"
+var rightDis = document.querySelector(".right");
+var wrongDis = document.querySelector(".wrong");
+var timerElement = document.querySelector(".timer-count");
+let i = "0";
+//score variables 
+let right = "0";
+let wrong = "0";
+let score = (right * 1000);
+
+//timer variables
+var timerCount;
+var timer;
+var penalty;
 //Questions array
 let quizQuestions = [
   {question:'What is JavaScript?',
@@ -60,21 +71,11 @@ function renderAnswers() {
   todoList.innerHTML = "";
  
   // Render the potential answers
+  if (i < quizQuestions.length) {
+    
   
    
     var todo = quizQuestions[i];
-    //Erase this 
-    //var li = document.createElement("li");
-    //li.textContent = todo.response.a;
-    //var li2 = document.createElement("li");
-    //li2.textContent = todo.response.b;
-    //var li3 = document.createElement("li");
-    //li3.textContent = todo.response.c;
-    //var li4 = document.createElement("li");
-    //li4.textContent = todo.response.d;
-
-   // li.setAttribute("data-index", i);
-
     var button1 = document.createElement("button");
     button1.setAttribute("data-index", 'a')
     button1.textContent = todo.response.a;
@@ -87,8 +88,6 @@ function renderAnswers() {
     var button4 = document.createElement("button");
     button4.setAttribute("data-index", 'd')
     button4.textContent = todo.response.d;
-   // todo.appendChild(button);
-
     todoList.appendChild(button1);
     todoList.appendChild(button2);
     todoList.appendChild(button3);
@@ -96,11 +95,16 @@ function renderAnswers() {
     console.log(todo.response);
     largeFontQuestion.textContent = todo.question;
   }
-;
-// Add a display none
-startButton.addEventListener("click", renderAnswers);
+  else {
+  largeFontQuestion.textContent ="Game Over";
+  }
+};
 
-// Add click event to todoList element
+
+//Start game needs to be changed 
+startButton.addEventListener("click", startGame);
+
+// Event for clicking on answers
 todoList.addEventListener("click", function(event) {
   var element = event.target;
 
@@ -108,12 +112,58 @@ todoList.addEventListener("click", function(event) {
   if (element.matches("button") === true) {
     // Get its data-index value and remove the todo element from the list
    
-    var index = element.parentElement.getAttribute("data-index");
-    console.log("You clicked on"+ index);
-    console.log(index)
- 
-  }
+    var index = element.getAttribute("data-index");
+   //checks if answer is correct. 
+ if (index === quizQuestions[i].correctAnswer) {
+  console.log("Correct");
+  i++;
+  right++;
+  rightDis.textContent = right;
+  
+ renderAnswers();
+  
+ }
+ //if not correct
+ else {console.log("wrong");
+ wrong++;
+ wrongDis.textContent = wrong;
+ timerCount = timerCount -5;
+
+i++;
+
+renderAnswers();
+}
+  
+}
 });
 
-// // Calls init to retrieve data and render it to the page on load
-// init()
+function startGame(){
+  let i = "0";
+  let right = "0";
+  let wrong = "0";
+  let timerCount = 30;
+  startTimer(timerCount);
+  renderAnswers();
+
+}
+  var startTimer = function (timerCount) {
+    // Sets timer
+ 
+    console.log(timerCount);
+    timer = setInterval(function() {
+      timerCount--;
+      //timerCount = timerCount -
+      timerElement.textContent = timerCount;
+      console.log(timerCount);
+      if (timerCount >= 0) {
+        
+      }
+      // Tests if time has run out
+      if (timerCount === 0) {
+        // Clears interval
+        clearInterval(timer);
+        i="6";
+        renderAnswers();
+      }
+    }, 1000);
+  }
