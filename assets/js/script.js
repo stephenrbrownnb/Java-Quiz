@@ -12,9 +12,10 @@ var wrong = "0";
 var score = 0;
 var endTime = 0;
 var highScores = [];
-localStorage.getItem("highScores")
-//score variables 
-//let score = (right * 1000);
+var initials ="";
+
+
+
 
 //timer variables
 var timerCount;
@@ -73,7 +74,7 @@ console.log(quizQuestions[0]);
 function renderAnswers() {
   // Clear todoList element and update todoCountSpan
   todoList.innerHTML = "";
- 
+
   // Render the potential answers
   if (i < quizQuestions.length) {
     
@@ -111,10 +112,14 @@ function endGame(){
   score = right * endTime;
   console.log(score);
   createHighScores();
+  
 }
 
 //Event listener.to start the game. 
-startButton.addEventListener("click", startGame);
+startButton.addEventListener("click", startGame);{
+  console.log("starting game");
+}
+
 
 // Event for clicking on answers
 todoList.addEventListener("click", function(event) {
@@ -181,13 +186,13 @@ function startGame(){
     }, 1000);
   }
   function createHighScores () {
-    // var initials =
-    localStorage.get
+    
+  
     let initials = prompt('What are your initials'); 
     var highScore = {Name:initials,score:score};
      highScores.push(highScore);
      console.log(highScores)
      localStorage.setItem("highScores",JSON.stringify(highScores));
-
+i=0;
 
     }
