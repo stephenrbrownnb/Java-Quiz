@@ -6,11 +6,15 @@ largeFontQuestion.textContent = "";
 var rightDis = document.querySelector(".right");
 var wrongDis = document.querySelector(".wrong");
 var timerElement = document.querySelector(".timer-count");
-let i = "0";
+var i = "0";
+var right = "0";
+var wrong = "0";
+var score = 0;
+var endTime = 0;
+var highScores = [];
+localStorage.getItem("highScores")
 //score variables 
-let right = "0";
-let wrong = "0";
-let score = (right * 1000);
+//let score = (right * 1000);
 
 //timer variables
 var timerCount;
@@ -96,12 +100,20 @@ function renderAnswers() {
     largeFontQuestion.textContent = todo.question;
   }
   else {
-  largeFontQuestion.textContent ="Game Over";
+  endGame();
   }
 };
 
+//things to do when game is over
+function endGame(){
+  largeFontQuestion.textContent ="Game Over " + endTime + " seconds left.";
+  clearInterval(timer);
+  score = right * endTime;
+  console.log(score);
+  createHighScores();
+}
 
-//Start game needs to be changed 
+//Event listener.to start the game. 
 startButton.addEventListener("click", startGame);
 
 // Event for clicking on answers
@@ -128,7 +140,7 @@ todoList.addEventListener("click", function(event) {
  wrong++;
  wrongDis.textContent = wrong;
  timerCount = timerCount -5;
-
+console.log(timerCount);
 i++;
 
 renderAnswers();
@@ -139,14 +151,14 @@ renderAnswers();
 
 function startGame(){
   let i = "0";
-  let right = "0";
-  let wrong = "0";
-  let timerCount = 30;
+   right = "0";
+   wrong = "0";
+ timerCount = 30;
   startTimer(timerCount);
   renderAnswers();
 
 }
-  var startTimer = function (timerCount) {
+  startTimer = function () {
     // Sets timer
  
     console.log(timerCount);
@@ -155,6 +167,7 @@ function startGame(){
       //timerCount = timerCount -
       timerElement.textContent = timerCount;
       console.log(timerCount);
+      endTime = timerCount
       if (timerCount >= 0) {
         
       }
@@ -162,8 +175,19 @@ function startGame(){
       if (timerCount === 0) {
         // Clears interval
         clearInterval(timer);
-        i="6";
-        renderAnswers();
+        
+        endGame();
       }
     }, 1000);
   }
+  function createHighScores () {
+    // var initials =
+    localStorage.get
+    let initials = prompt('What are your initials'); 
+    var highScore = {Name:initials,score:score};
+     highScores.push(highScore);
+     console.log(highScores)
+     localStorage.setItem("highScores",JSON.stringify(highScores));
+
+
+    }
