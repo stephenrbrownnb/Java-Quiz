@@ -7,7 +7,7 @@ Created a java quiz with timer. For each wrong answer you will be penalized 5 se
 
 ## Usage
 to start the game click on start game. to select an answer click on the box holding the answer. WARNing each wrong answer will result in 5 seconds being deducted from your score. 
-
+https://stephenrbrownnb.github.io/Java-Quiz/
 ![screenshot](screenshot.JPG)
 
 ## License
